@@ -27,7 +27,7 @@ class ProductList {
             this.container.insertAdjacentHTML('beforeend', productObject.getHTMLString());
         }
     }
-
+    // подсчитвает сумму товаров на странице католога и выводит в консоль
     _sumValue(){
         let sum = 0;
         this._goods.forEach(el =>sum+= el.price);
@@ -88,25 +88,23 @@ class BasketList{
         this._render();
     }
 
-    _render(){
+    _render(){   // постороение списка товаров в корзине 
         for (const product of this._goods) {
             const productObject = new BasketItem(product);
-            // console.log(productObject);
-
             this._productsObjects.push(productObject);
             this.container.insertAdjacentHTML('beforeend', productObject.getHTMLString());
         }
     }
     
-    _remove(elem){
+    _remove(elem){              // удаление товара из списка
         this._goods.forEach(el=> {
             if (elem.data.id === el.id){
-                this._goods[el.id - 1].remove(); // или использовать splice()
+                this._goods[el.id - 1].remove(); // или использовать splice()?
             }
         })
     }
-    addQuantity(){}
-    removeQuantuty(){}
+    addQuantity(){}     //Добавить количество товара
+    removeQuantuty(){}   //Убавить количество товара
 }
 
 document.querySelector('.basket').addEventListener('click', target =>{
@@ -118,7 +116,7 @@ document.querySelector('.basket').addEventListener('click', target =>{
 document.querySelector('.btn-cart').addEventListener('click', event=> document.querySelector('.basket').classList.toggle('hidden'));
 
 class BasketItem{
-    constructor(product, img = 'https://via.placeholder.com/50x20', 
+    constructor(product, img = 'https://via.placeholder.com/50x30', 
     quantity = 1){
         this.id = product.id;
         this.title = product.title;
@@ -127,7 +125,7 @@ class BasketItem{
         this.quantity = quantity;
     }
 
-    getHTMLString() {
+    getHTMLString() { // добавление строки с товаром в корзине на странице
         return `<div class="basket-item" data-id="${this.id}">
                 <img src="${this.img}" alt="Some img">
                     <h3>${this.title}</h3>
