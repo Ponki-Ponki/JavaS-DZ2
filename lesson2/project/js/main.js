@@ -27,11 +27,11 @@ class ProductList {
             this.container.insertAdjacentHTML('beforeend', productObject.getHTMLString());
         }
     }
-    // подсчитвает сумму товаров на странице католога и выводит в консоль
+    // подсчитвает сумму товаров на странице католога
     _sumValue(){
         let sum = 0;
         this._goods.forEach(el =>sum+= el.price);
-        console.log(sum);
+        return sum;
     }
 }
 
@@ -56,6 +56,7 @@ class ProductItem {
 }
 
 const list = new ProductList();
+console.log(list._sumValue);
 
 // const products = [
 //   {id: 1, title: 'Notebook', price: 20000},
