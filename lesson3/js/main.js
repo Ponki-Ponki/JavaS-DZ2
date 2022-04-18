@@ -70,7 +70,19 @@ class ProductList {
                 if(permission.result === 1){
                     this._goods.forEach(el=>{
                         if (id_product == el.id_product){
-                            basket._goods.contents.push(el);
+                            const arr = basket._goods.contents;
+                            let availability = false;
+                            for (let i = 0; i < arr.length;i++){
+                                if(el.id_product === arr[i].id_product){
+                                        arr[i].quantity ++;
+                                        availability = true;
+                                        break;
+                                    }                                       
+                            }
+                            if (!availability){
+                                el.quantity = 1;
+                                basket._goods.contents.push(el);
+                            }
                         }
                     })
                     basket._render();
@@ -142,8 +154,6 @@ class BasketList{
         }
         for (const product of this._goods.contents) {
             const productObject = new BasketItem(product);
-
-            
             this._productsObjects.push(productObject);
             this.container.insertAdjacentHTML('beforeend', productObject.getHTMLString());
         }
