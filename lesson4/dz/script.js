@@ -46,7 +46,7 @@ let str = 'Язык JavaScript называется так из-за попул�
 // for rus [а-яА-ЯёЁ]
 // + - {1,}
 // * - {0,}
-// ? - {0,1}        /+7(\d*3)\d*3-\d*4/
+// ? - {0,1}
 
 // console.log('+7-(000) 000:00-00'.replace(/\D/g, '')) // 70000000000
 // console.log('+7-(000) 000:00-00'.match(/\d+/g).join('')) // 70000000000
@@ -62,9 +62,9 @@ let str = 'Язык JavaScript называется так из-за попул�
 // console.log('Chapter 7.2 7f2'.match(/\d\.\d/g));
 
 // test
-console.log(/java/i.test(str));
+// console.log(/java/i.test(str));
 
-// // exec
+// exec
 // let result;
 // let regExp = /java/ig;
 
@@ -74,3 +74,10 @@ console.log(/java/i.test(str));
 //     console.log(`Текущий lastIndex ${regExp.lastIndex}`);
 // }
 // console.log(`Конечный lastIndex ${regExp.lastIndex}`);
+
+
+let text = "One: 'Hi Mary.' Two: 'Oh, hi.' One: 'How are you doing?' Two: 'I'm doing alright. How about you?' One: 'Not too bad. The weather is great isn't it?' Two: 'Yes. It's absolutely beautiful today.' One: 'I wish it was like this more frequently.' Two: 'Me too.' One: 'So where are you going now?' Two: 'I'm going to meet a friend of mine at the department store' One: 'Going to do a little shopping?' Two: 'Yeah, I have to buy some presents for my parents.' One: 'What's the occasion?' Two: 'It's their anniversary.' One: 'That's great. Well, you better get going. You don't want to be late.' Two: 'I'll see you next time.' One: 'Sure.' Bye.'";
+
+console.log(text.replace(/'/g, '"'));
+console.log('\n\n\n');
+console.log(text.replace(/\B'/g,'"'));
