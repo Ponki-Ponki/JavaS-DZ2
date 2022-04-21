@@ -26,15 +26,14 @@
 </head>
 <body>
    <form class="form">
-         <p>Имя: <input type="text"></p>
-         <span>Не правильно введено имя!</span>
-         <p>Телефон: <input type="tel"></p>
-         <span>Не правильный формат телефона!</span>
-         <p>E-mail: <input type="email"></p>
-         <span>Не правильный формат E-mail!</span>
-         <p>Текст произвольный: <textarea name="textArea" cols="30" rows="10">
-         </textarea></p> 
-         <span>Пустое поле!</span>
+         <p>Имя: <input type="text" placeholder="Владимер" value=" "></p>
+         <span id="name">Не коректное введение данных!</span>
+         <p>Телефон: <input type="tel" placeholder="+7(000)000-0000"></p>
+         <span id="tel">Не коректное введение данных!</span>
+         <p>E-mail: <input type="email" placeholder="mymail@mail.ru"></p>
+         <span id="email">Не коректное введение данных!</span>
+         <p>Текст произвольный:  <textarea name="textArea" cols="30" rows="10"></textarea></p> 
+         <span id="area">Не коректное введение данных!</span>
          <button>Отправить</button>
    </form>
 
