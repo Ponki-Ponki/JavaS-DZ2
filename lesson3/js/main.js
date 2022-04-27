@@ -115,7 +115,7 @@ class ProductItem {
 
 const list = new ProductList();
 
-{
+
 let div = document.createElement('div');
 div.classList.add('basket');
 document.querySelector('header').appendChild(div);
@@ -128,7 +128,7 @@ document.querySelector('.basket').addEventListener('click', event =>{
     }
 });
 document.querySelector('.btn-cart').addEventListener('click', event=> document.querySelector('.basket').classList.toggle('hidden'));
-}
+
 
 class BasketList{
     constructor(container = '.basket') {
