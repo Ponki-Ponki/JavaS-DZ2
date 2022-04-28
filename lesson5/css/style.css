@@ -79,7 +79,7 @@ img {
     background-color: white;
     padding: 20px;
     color: black;
-    width: 300px;
+    width: 500px;
 }
 
 .invisible{
@@ -115,6 +115,7 @@ img {
 .basket-item {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
 }
 .basket-item:not(:last-child){
     margin-bottom: 20px;
@@ -168,4 +169,15 @@ img {
     background-color: transparent;
     border: none;
     border-bottom: 2px solid #fafafa;
+}
+.bsaket-footer{
+    display: flex;
+    justify-content: space-between;
+}
+.item-title{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.item-title p{
+    margin: 20px 10px;
 }

@@ -11,32 +11,26 @@
     <header>
         <div class="logo">Интернет-магазин</div>
         <div class="basket">
-            <form action="#" class="search-form" @input.prevent="filter">
+            <form action="#" class="search-form" @submit.prevent="filter">
                 <input type="text" class="search-field" v-model="searchData">
                 <button class="btn-search" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-            <button class="btn-cart" type="button" @click="showBasket = !showBasket">Корзина</button>
-            <div class="basket-block" v-show="showBasket">
-                <div>
-                    <p>Товар</p>
-                    <p>Количество</p>
-                    <p>Цена</p>
-                </div>
+            <button class="btn-cart" type="button" @click="isVisibleCart = !isVisibleCart">Корзина</button>
+            <div v-if="!basketItems.length" class="basket-block" v-show="isVisibleCart">Корзина пуста!</div>
+            <div v-else="basketItems.length" class="basket-block" v-show="isVisibleCart">
                 <div class="basket-item" v-for="product of basketItems" :key="product.id_product">
                     <img :src="imgBasket" alt="Some img">
-                    <div class="desc">
-                        <h3>{{product.product_name}}</h3>
-                        <p>{{product.price}}₽</p>
-                        <p>{{product.quantity}}</p>
+                    <div class="desc basket-item item-title">
+                        <p>{{product.product_name}}</p>
+                        <p>Кол-во: {{product.quantity}}</p>
+                        <p>Цена: {{product.price}}₽</p>
                     </div>
                 </div>
-                <div>
-                    <p>Всего штук:</p>
-                    <p>{{countGoods}}</p>
-                    <p>Общая цена</p>
-                    <p>{{amount}}</p>
+                <div class="bsaket-footer">
+                    <p>Всего штук: {{countGoods}}</p>
+                    <p>Общая цена: {{amount}}₽</p>
                 </div>
             </div>
         </div>

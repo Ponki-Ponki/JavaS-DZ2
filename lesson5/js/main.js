@@ -10,10 +10,10 @@ const app = new Vue({
         amount: 0,
         countGoods: 0,
         imgCatalog: 'https://via.placeholder.com/200x150',
-        imgBasket: 'https://via.placeholder.com/20x15',
+        imgBasket: 'https://via.placeholder.com/110x90',
         searchData: '',
         filtered: [],
-        showBasket:false,
+        isVisibleCart:false,
     },
     methods: {
         getJson(url) {
