@@ -3,31 +3,27 @@ Vue.component('products', {
         return {
             catalogUrl: '/catalogData.json',
             products: [],
-            filtered: [],
-            imgCatalog: 'https://placehold.it/200x150',
+            imgCatalog: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.osinka.ru%2Finfo%2Fbanners%2Fosinka_banner_200x150_1.png&f=1&nofb=1',
         }
     },
     methods: {
-        filter(search){
-            let regexp = new RegExp(search, 'i');
-            this.filtered = this.products.filter(el => regexp.test(el.product_name));
-        }
     },
     mounted(){
         this.$parent.getJson(`${API + this.catalogUrl}`)
             .then(data => {
                 for(let el of data){
                     this.products.push(el);
-                    this.filtered.push(el);
                 }
             });
     },
     template: `
         <div class="products">
-            <product v-for="item of filtered" :key="item.id_product" :img="imgCatalog" :product="item"></product>
+            <product v-for="item of $root.$refs.filtered.filtered" :key="item.id_product" :img="imgCatalog" :product="item"></product>
         </div>
     `
 });
+
+
 Vue.component('product', {
     props: ['product', 'img'],
 
