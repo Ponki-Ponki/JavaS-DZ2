@@ -31,7 +31,7 @@ class ProductList {
     _sumValue(){
         let sum = 0;
         this._goods.forEach(el =>sum+= el.price);
-        console.log(sum);
+        return sum;
     }
 }
 
