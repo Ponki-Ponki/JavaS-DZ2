@@ -6,6 +6,7 @@ class ProductList {
 
         this._fetchGoods();
         this._render();
+        this._sumValue();
     }
 
     _fetchGoods() {
@@ -20,11 +21,17 @@ class ProductList {
     _render() {
         for (const product of this._goods) {
             const productObject = new ProductItem(product);
-            console.log(productObject);
+            // console.log(productObject);
 
             this._productsObjects.push(productObject);
             this.container.insertAdjacentHTML('beforeend', productObject.getHTMLString());
         }
+    }
+    // подсчитвает сумму товаров на странице католога и выводит в консоль
+    _sumValue(){
+        let sum = 0;
+        this._goods.forEach(el =>sum+= el.price);
+        return sum;
     }
 }
 
@@ -44,7 +51,7 @@ class ProductItem {
                       <p>${this.price} \u20bd</p>
                       <button class="buy-btn">Купить</button>
                   </div>
-              </div>`;
+                </div>`;
     }
 }
 
@@ -72,3 +79,59 @@ const list = new ProductList();
 //
 // renderProducts(products);
 
+class BasketList{
+    constructor(container = '.basket') {
+        this.container = document.querySelector(container);
+        this._goods = [];
+        this._productsObjects = [];
+        
+        this._render();
+    }
+
+    _render(){   // постороение списка товаров в корзине 
+        for (const product of this._goods) {
+            const productObject = new BasketItem(product);
+            this._productsObjects.push(productObject);
+            this.container.insertAdjacentHTML('beforeend', productObject.getHTMLString());
+        }
+    }
+    
+    _remove(elem){              // удаление товара из списка
+        this._goods.forEach(el=> {
+            if (elem.data.id === el.id){
+                this._goods[el.id - 1].remove(); // или использовать splice()?
+            }
+        })
+    }
+    addQuantity(){}     //Добавить количество товара
+    removeQuantuty(){}   //Убавить количество товара
+}
+
+document.querySelector('.basket').addEventListener('click', target =>{
+    if (target.classlist.contains('basket-item')){
+        target._remove(target);
+        target.remove();
+    }
+});
+document.querySelector('.btn-cart').addEventListener('click', event=> document.querySelector('.basket').classList.toggle('hidden'));
+
+class BasketItem{
+    constructor(product, img = 'https://via.placeholder.com/50x30', 
+    quantity = 1){
+        this.id = product.id;
+        this.title = product.title;
+        this.price = product.price;
+        this.img = img;
+        this.quantity = quantity;
+    }
+
+    getHTMLString() { // добавление строки с товаром в корзине на странице
+        return `<div class="basket-item" data-id="${this.id}">
+                <img src="${this.img}" alt="Some img">
+                    <h3>${this.title}</h3>
+                    <p>${this.price} \u20bd</p>
+                    <span>${this.quantity}</span>
+                    <span>Price: ${this.price}*${this.quantity}</span>
+                </div>`;
+    }
+}
