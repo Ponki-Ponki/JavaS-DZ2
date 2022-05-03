@@ -2,7 +2,7 @@ Vue.component('cart', {
     data(){
       return {
           imgCart: 'https://via.placeholder.com/50x100',
-          cartUrl: '/getBasket.json',
+          cartUrl: '/api/cart',
           cartItems: [],
           showCart: false,
       }
@@ -11,11 +11,11 @@ Vue.component('cart', {
         addProduct(product){
             let find = this.cartItems.find(el => el.id_product === product.id_product);
             if(find){
-                this.$parent.putJson(`/api/cart/${find.id_product}`, {quantity: 1});
+                this.$parent.putJson(`${this.cartUrl}/${find.id_product}`, {quantity: 1});
                 find.quantity++;
             } else {
                 let prod = Object.assign({quantity: 1}, product);
-                this.$parent.postJson('/api/cart', prod)
+                this.$parent.postJson(this.cartUrl, prod)
                   .then(data => {
                       if (data.result === 1) {
                           this.cartItems.push(prod);
@@ -24,20 +24,36 @@ Vue.component('cart', {
             }
         },
         remove(item) {
-            this.$parent.getJson(`${API}/deleteFromBasket.json`)
+            this.$parent.putJson(`${this.cartUrl}/${item.id_product}`, {quantity: -1})
                 .then(data => {
                     if(data.result === 1) {
                         if(item.quantity>1){
                             item.quantity--;
-                        } else {
-                            this.cartItems.splice(this.cartItems.indexOf(item), 1)
+                        }else {
+                            this.del(item)
                         }
+                    }
+                })
+        },
+        del(item){
+            this.$parent.deleteJson(`${this.cartUrl}/${item.id_product}`, item)
+            .then(data =>{
+                if(data.result === 1) {
+                    this.cartItems.splice(this.cartItems.indexOf(item),1)
+                }
+            })
+        },
+        addItem(item){
+            this.$parent.putJson(`${this.cartUrl}/${item.id_product}`, {quantity: 1})
+                .then(data => {
+                    if(data.result === 1) {
+                        item.quantity++;
                     }
                 })
         },
     },
     mounted(){
-        this.$parent.getJson('/api/cart')
+        this.$parent.getJson(this.cartUrl)
             .then(data => {
                 for(let el of data.contents){
                     this.cartItems.push(el);
@@ -54,7 +70,9 @@ Vue.component('cart', {
                 :key="item.id_product"
                 :cart-item="item" 
                 :img="imgCart"
-                @remove="remove">
+                @del="del"
+                @remove="remove"
+                @addItem="addItem">
                 </cart-item>
             </div>
         </div>`
@@ -74,7 +92,9 @@ Vue.component('cart-item', {
                 </div>
                 <div class="right-block">
                     <p class="product-price">{{cartItem.quantity*cartItem.price}}₽</p>
-                    <button class="del-btn" @click="$emit('remove', cartItem)">&times;</button>
+                    <button class="del-btn" @click="$emit('addItem',cartItem)">+</button>
+                    <button class="del-btn" @click="$emit('remove',cartItem)">-</button>
+                    <button class="del-btn" @click="$emit('del', cartItem)">&times;</button>
                 </div>
             </div>
     `

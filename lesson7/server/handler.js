@@ -1,9 +1,11 @@
+const date = require('date-and-time');
 const fs = require('fs');
 const cart = require('./cart');
 
 const actions = {
   add: cart.add,
   change: cart.change,
+  delete: cart.del,
 };
 
 const handler = (req, res, action, file) => {
@@ -17,10 +19,24 @@ const handler = (req, res, action, file) => {
           res.send('{"result": 0}');
         } else {
           res.send('{"result": 1}');
+          stats(action,req,newCart);
         }
-      })
+      });
     }
   });
+};
+
+const stats = (action,req) =>{
+  fs.readFile('./server/api/stats.json',(err,data)=>{
+            if (!err){
+              const now = new Date();
+              const stats = JSON.parse(data);
+              let activ = `Действие: ${action},  'ID товара: ${req.params.id} Дата: ${date.format(now, 'YYYY/MM/DD HH:mm:ss')}
+              `;
+              stats.push(activ);
+              fs.writeFile('./server/api/stats.json',JSON.stringify(stats),()=>{})
+            }
+  })
 };
 
 module.exports = handler;
