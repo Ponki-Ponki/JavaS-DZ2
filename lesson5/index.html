@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Интернет-магазин</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+    <header>
+        <div class="logo">Интернет-магазин</div>
+        <div class="basket">
+            <form action="#" class="search-form" @submit.prevent="filter">
+                <input type="text" class="search-field" v-model="searchData">
+                <button class="btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <button class="btn-cart" type="button" @click="isVisibleCart = !isVisibleCart">Корзина</button>
+            <div v-if="!basketItems.length" class="basket-block" v-show="isVisibleCart">Корзина пуста!</div>
+            <div v-else="basketItems.length" class="basket-block" v-show="isVisibleCart">
+                <div class="basket-item" v-for="product of basketItems" :key="product.id_product">
+                    <img :src="imgBasket" alt="Some img">
+                    <div class="desc basket-item item-title">
+                        <p>{{product.product_name}}</p>
+                        <p>Кол-во: {{product.quantity}}</p>
+                        <p>Цена: {{product.price}}₽</p>
+                    </div>
+                </div>
+                <div class="bsaket-footer">
+                    <p>Всего штук: {{countGoods}}</p>
+                    <p>Общая цена: {{amount}}₽</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="products">
+            <div class="product-item" v-for="product of filtered" :key="product.id_product">
+                <img :src="imgCatalog" alt="Some img">
+                <div class="desc">
+                    <h3>{{product.product_name}}</h3>
+                    <p>{{product.price}}₽</p>
+                    <button class="buy-btn" @click="addProduct(product)">Купить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
