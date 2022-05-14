@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style> 
+      .form {
+         display: flex;
+         flex-direction: column;
+         align-items: stretch;
+         width: 350px;
+      }
+      p{
+         display: flex;
+         justify-content: space-between;
+      }
+     .error {
+       border: 0.3rem solid red;
+     }
+     span{
+        display: none;
+     }
+   </style>
+   <title>Document</title>
+</head>
+<body>
+   <form class="form">
+         <p>Имя: <input type="text" placeholder="Владимер" value=" "></p>
+         <span id="name">Не коректное введение данных!</span>
+         <p>Телефон: <input type="tel" placeholder="+7(000)000-0000"></p>
+         <span id="tel">Не коректное введение данных!</span>
+         <p>E-mail: <input type="email" placeholder="mymail@mail.ru"></p>
+         <span id="email">Не коректное введение данных!</span>
+         <p>Текст произвольный:  <textarea name="textArea" cols="30" rows="10"></textarea></p> 
+         <span id="area">Не коректное введение данных!</span>
+         <button>Отправить</button>
+   </form>
+
+
+   <script src ='script.js'></script>
+</body>
+</html>
