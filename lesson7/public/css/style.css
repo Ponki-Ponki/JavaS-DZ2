@@ -11,6 +11,9 @@ header{
 button:focus{
     outline: none;
 }
+a {
+    text-decoration: none;
+  }
 .logo{
 
     text-transform: uppercase;
@@ -50,13 +53,28 @@ button:focus{
 p {
     margin: 0 0 5px 0;
 }
-.product-item{
+.product-item, .product-item1{
     display: flex;
     flex-direction: column;
     width: 200px;
     border-radius: 5px;
     overflow: hidden;
     margin: 20px 0;
+}
+.product-item1{
+    margin: 20px 10%;
+    padding: 30px;
+    align-items: center;
+    width: 80%;
+}
+.product-item1 img{
+    margin: 0px 10%;
+    max-width: 80%;
+}
+.product-item1 .desc .desc{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 img {
     max-width: 100%;
@@ -97,8 +115,16 @@ img {
     border-right: 10px solid transparent;
     border-bottom: 10px solid white;
 }
-
-.buy-btn, .del-btn{
+.basket{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.basket-block{
+    width: 900px;
+    padding: 10px;
+}
+.buy-btn, .del-btn, .btn{
     margin-top: 5px;
     background-color: #2f2a2d;
     padding: 5px 15px;
@@ -107,6 +133,9 @@ img {
     border-radius: 5px;
     transition: all ease-in-out .4s;
     cursor: pointer;
+}
+.del-btn{
+    padding: 5px 36px;
 }
 .buy-btn:hover, .del-btn:hover{
     background-color: #fafafa;
