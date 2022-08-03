@@ -37,23 +37,18 @@ Vue.component('product', {
                 <div class="desc">
                     <h3>{{product.product_name}}</h3>
                     <p>{{product.price}}₽</p>
-                    <a class="btn" href="product.html" @click="$root.$refs.product1.vievProduct(product)">Подробнее</a>
+                    <a class="btn" href="product.html" :item="product">Подробнее</a>
                     <button class="buy-btn" @click="$root.$refs.cart.addProduct(product)">Купить</button>
                 </div>
             </div>
     `
 });
 Vue.component('product1', {
+    props:['item'],
+
     data(){
         return {
-            product:{},
             img: 'https://via.placeholder.com/600x550',
-        }
-    },
-    methods:{
-        vievProduct(prod){
-            this.product= prod;
-            console.log(prod);
         }
     },
     template: `
@@ -61,10 +56,10 @@ Vue.component('product1', {
                 <div class="desc">
                     <img :src="img" alt="Some img">
                     <div class="desc">
-                    <h3>{{product.product_name}}</h3>
-                    <p>{{product.price}}₽</p>
+                    <h3>{{item.product_name}}</h3>
+                    <p>{{item.price}}₽</p>
                     <p>"Описание товара"</p>
-                    <button class="buy-btn" @click="$root.$refs.cart.addProduct(product)">Купить</button>
+                    <button class="buy-btn" @click="$root.$refs.cart.addProduct(item)">Купить</button>
                     <a class="btn" href="index.html">В каталог</a>
                     </div>
                 </div>
