@@ -30,36 +30,42 @@ Vue.component('products', {
 });
 Vue.component('product', {
     props: ['product', 'img'],
-
     template: `
     <div class="product-item">
                 <img :src="img" alt="Some img">
                 <div class="desc">
                     <h3>{{product.product_name}}</h3>
                     <p>{{product.price}}₽</p>
-                    <a class="btn" href="product.html" :item="product">Подробнее</a>
+                    <a class="btn" href="product.html" @click="$root.$refs.product1.vievProduct(product)" :item="product">Подробнее</a>
                     <button class="buy-btn" @click="$root.$refs.cart.addProduct(product)">Купить</button>
                 </div>
             </div>
+
     `
 });
 Vue.component('product1', {
     props:['item'],
-
     data(){
         return {
+            product:{},
             img: 'https://via.placeholder.com/600x550',
         }
     },
+    methods:{
+        vievProduct(item){
+            this.product= item;
+            console.log(item);
+        }
+    },    
     template: `
     <div class="product-item1">
                 <div class="desc">
                     <img :src="img" alt="Some img">
                     <div class="desc">
-                    <h3>{{item.product_name}}</h3>
-                    <p>{{item.price}}₽</p>
+                    <h3>{{product.product_name}}</h3>
+                    <p>{{product.price}}₽</p>
                     <p>"Описание товара"</p>
-                    <button class="buy-btn" @click="$root.$refs.cart.addProduct(item)">Купить</button>
+                    <button class="buy-btn" @click="$root.$refs.cart.addProduct(product)">Купить</button>
                     <a class="btn" href="index.html">В каталог</a>
                     </div>
                 </div>
